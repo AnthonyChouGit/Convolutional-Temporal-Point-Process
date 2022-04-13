@@ -324,3 +324,6 @@ epoch 133 finished, best_loss=1.6090900897979736.
 {'embed_dim': 64, 'hidden_dim': 64, 'num_types': 22, 'model': 'conv-tpp', 'num_channel': 3, 'horizon': [inf, inf, inf], 'num_component': 64}
 epoch 1 finished, best_loss=2.0830886363983154.
 epoch 2 finished, best_loss=1.995832085609436.
+04/12/22 20:41:24
+{'embed_dim': 64, 'hidden_dim': 64, 'num_types': 22, 'model': 'conv-tpp', 'num_channel': 3, 'horizon': [inf, inf, inf], 'num_component': 64}
+epoch 1 finished, best_loss=2.082801103591919.

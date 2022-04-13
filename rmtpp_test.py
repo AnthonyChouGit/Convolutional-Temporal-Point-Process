@@ -9,14 +9,13 @@ import math
 from tqdm import tqdm
 
 if __name__ == '__main__':
+    # torch.autograd.set_detect_anomaly(True)
     batch_size = 32
     eval_batch_size = 128
-    embed_dim = 128
-    hidden_dim = 128
     num_epochs = 400
     lr = 1e-3
     device = 'cuda:1'
-    model_name = 'so1-nhp'
+    model_name = 'so1-rmtpp'
     patience = 85
     display_step = 1
     lr_step = 40
@@ -26,10 +25,11 @@ if __name__ == '__main__':
     train_loader, _, dev_loader, test_loader, num_types = prepare_dataloader(data_dir, batch_size,
                                                                      eval_batch_size, 256)# TODO: here
     config = {
-        'embed_dim': embed_dim,
-        'hidden_dim': hidden_dim,
         'num_types': num_types,
-        'model': 'nhp'
+        'model': 'rmtpp',
+        'embed_dim': 64,
+        'hidden_dim': 64,
+        'mlp_dim': 128
     }
     model = TPP(config).to(device)
 
@@ -48,6 +48,7 @@ if __name__ == '__main__':
             optimizer.zero_grad()
             loss = model.compute_loss(event_type, event_time)
             loss.backward()
+            # torch.nn.utils.clip_grad_norm_(model.parameters(), 2.)
             optimizer.step()
         scheduler.step()
         with torch.no_grad():

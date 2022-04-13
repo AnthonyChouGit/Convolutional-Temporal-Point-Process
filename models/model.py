@@ -2,12 +2,14 @@ import torch
 from torch import nn
 from .nhp.model import NHP
 from .conv_tpp.model import ConvTPP
+from .hp.model import HP
+from .rmtpp.model import RMTPP
 
 class TPP(nn.Module):
     def __init__(self, config):
         super(TPP, self).__init__()
         num_types = config['num_types']
-        embed_dim = config['embed_dim']
+        # embed_dim = config['embed_dim']
         # self.embed = nn.Embedding(num_types+2, embed_dim, padding_idx=0)
         self.num_types = num_types
         model_name = config['model']
@@ -15,6 +17,10 @@ class TPP(nn.Module):
             self.model = NHP(config)
         elif model_name.lower() == 'conv-tpp':
             self.model = ConvTPP(config)
+        elif model_name.lower() == 'hp':
+            self.model = HP(config)
+        elif model_name.lower() == 'rmtpp':
+            self.model = RMTPP(config)
         else:
             raise NotImplementedError(f'{model_name} is not implemented.')
         self.register_buffer('device_indicator', torch.empty(0))

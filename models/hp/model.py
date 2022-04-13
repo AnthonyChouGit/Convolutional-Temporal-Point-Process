@@ -1,5 +1,5 @@
 import torch
-from torch import device, nn
+from torch import nn
 from .utils.mask import get_subsequent_mask
 
 class HP(nn.Module):
@@ -27,7 +27,7 @@ class HP(nn.Module):
         seq_len -= 1
         event_mus = mhat[type_seq[:, 1:]] # 1-seq_len (batch_size, seq_len)
         dt = time_seq[:, :, None] - time_seq[:, None, :] # (batch_size, seq_len+1, seq_len+1)
-        sub_mask = get_subsequent_mask(seq_len+1) # (seq_len+1, seq_len+1)
+        sub_mask = get_subsequent_mask(seq_len+1).to(device) # (seq_len+1, seq_len+1)
         mask = type_seq.eq(0)
         dt.masked_fill_(sub_mask, 0) 
         dt.masked_fill_(mask[:, :, None], 0)
@@ -90,10 +90,10 @@ class HP(nn.Module):
         type_sum_probs = type_sum_rates * torch.exp(-type_sum_int_rates) # (n_samples+1)
         t_ft = dt_vals * type_sum_probs
         time_step = max_t / n_samples
-        expected_dtime = ((t_ft[1:]+t_ft[:-1]) * 0.5 * time_seq).sum()
+        expected_dtime = ((t_ft[1:]+t_ft[:-1]) * 0.5 * time_step).sum()
         ratio = rates / type_sum_rates[:, None] # (n_samples+1, num_types)
         type_density = ratio * type_sum_probs[:, None]
         estimate_type_prob = (0.5 * (type_density[1:] + type_density[:-1]) * time_step).sum(dim=0)
         estimate_type = torch.argmax(estimate_type_prob) + 1
-        return estimate_type, expected_dtime
+        return estimate_type.item(), expected_dtime.item()
 

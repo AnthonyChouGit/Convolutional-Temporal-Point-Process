@@ -1,0 +1,339 @@
+04/12/22 20:30:44
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:31:15
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=1269.8114013671875.
+epoch 2 finished, best_loss=499.6432800292969.
+epoch 3 finished, best_loss=249.7703094482422.
+epoch 4 finished, best_loss=150.79278564453125.
+epoch 5 finished, best_loss=89.78902435302734.
+epoch 6 finished, best_loss=64.66133880615234.
+epoch 7 finished, best_loss=49.56235885620117.
+epoch 8 finished, best_loss=34.467010498046875.
+epoch 9 finished, best_loss=30.763294219970703.
+epoch 10 finished, best_loss=26.449254989624023.
+epoch 11 finished, best_loss=24.205848693847656.
+04/12/22 20:39:49
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:44:36
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:46:29
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:50:13
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:51:53
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:54:12
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:55:31
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:56:06
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 20:58:42
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=195.63076782226562.
+epoch 2 finished, best_loss=195.63076782226562.
+epoch 3 finished, best_loss=115.62356567382812.
+epoch 4 finished, best_loss=60.60602951049805.
+04/12/22 21:03:25
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+04/12/22 21:03:57
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=1.8567553758621216.
+04/12/22 21:06:22
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=1.6734731197357178.
+04/12/22 21:33:58
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.059203624725342.
+04/12/22 21:55:36
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=1.7259516716003418.
+04/12/22 21:56:38
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=1.5171263217926025.
+04/12/22 22:13:06
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.310633897781372.
+epoch 2 finished, best_loss=2.1137537956237793.
+04/12/22 22:56:45
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.3266074657440186.
+epoch 2 finished, best_loss=2.1831674575805664.
+04/12/22 23:41:21
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.3264758586883545.
+04/12/22 23:41:51
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.3311386108398438.
+epoch 2 finished, best_loss=2.1791608333587646.
+04/12/22 23:44:50
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.3528993129730225.
+epoch 2 finished, best_loss=2.2639706134796143.
+epoch 3 finished, best_loss=2.1627466678619385.
+epoch 4 finished, best_loss=2.075420379638672.
+epoch 5 finished, best_loss=1.9909281730651855.
+epoch 6 finished, best_loss=1.8777467012405396.
+epoch 7 finished, best_loss=1.7683204412460327.
+epoch 8 finished, best_loss=1.6985727548599243.
+epoch 9 finished, best_loss=1.5362383127212524.
+epoch 10 finished, best_loss=1.4144388437271118.
+epoch 11 finished, best_loss=1.2791589498519897.
+04/13/22 00:07:26
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=36.824249267578125.
+epoch 2 finished, best_loss=12.871696472167969.
+epoch 3 finished, best_loss=9.254979133605957.
+epoch 4 finished, best_loss=8.22010326385498.
+epoch 5 finished, best_loss=6.424851417541504.
+epoch 6 finished, best_loss=6.090956687927246.
+epoch 7 finished, best_loss=5.76059627532959.
+epoch 8 finished, best_loss=5.509313583374023.
+epoch 9 finished, best_loss=5.509313583374023.
+epoch 10 finished, best_loss=5.509313583374023.
+epoch 11 finished, best_loss=5.286132335662842.
+epoch 12 finished, best_loss=4.897804260253906.
+epoch 13 finished, best_loss=4.897804260253906.
+epoch 14 finished, best_loss=4.814841270446777.
+epoch 15 finished, best_loss=4.814841270446777.
+epoch 16 finished, best_loss=4.814841270446777.
+epoch 17 finished, best_loss=4.688060760498047.
+epoch 18 finished, best_loss=4.688060760498047.
+epoch 19 finished, best_loss=4.6825079917907715.
+epoch 20 finished, best_loss=4.548734664916992.
+epoch 21 finished, best_loss=4.452078342437744.
+epoch 22 finished, best_loss=4.452078342437744.
+epoch 23 finished, best_loss=4.452078342437744.
+epoch 24 finished, best_loss=4.452078342437744.
+04/13/22 09:18:52
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=19.839248657226562.
+epoch 2 finished, best_loss=12.746784210205078.
+epoch 3 finished, best_loss=9.90597152709961.
+epoch 4 finished, best_loss=8.666942596435547.
+epoch 5 finished, best_loss=8.666942596435547.
+epoch 6 finished, best_loss=7.10042142868042.
+epoch 7 finished, best_loss=6.586530685424805.
+epoch 8 finished, best_loss=6.07243013381958.
+epoch 9 finished, best_loss=5.824819087982178.
+epoch 10 finished, best_loss=5.824819087982178.
+epoch 11 finished, best_loss=5.824819087982178.
+epoch 12 finished, best_loss=5.824819087982178.
+epoch 13 finished, best_loss=5.024595737457275.
+epoch 14 finished, best_loss=5.024595737457275.
+epoch 15 finished, best_loss=5.024595737457275.
+epoch 16 finished, best_loss=5.024595737457275.
+epoch 17 finished, best_loss=5.024595737457275.
+epoch 18 finished, best_loss=4.696138858795166.
+epoch 19 finished, best_loss=4.696138858795166.
+epoch 20 finished, best_loss=4.617490768432617.
+epoch 21 finished, best_loss=4.617490768432617.
+epoch 22 finished, best_loss=4.531684398651123.
+epoch 23 finished, best_loss=4.531684398651123.
+epoch 24 finished, best_loss=4.531684398651123.
+epoch 25 finished, best_loss=4.531684398651123.
+epoch 26 finished, best_loss=4.531684398651123.
+epoch 27 finished, best_loss=4.225813388824463.
+epoch 28 finished, best_loss=4.225813388824463.
+epoch 29 finished, best_loss=4.225813388824463.
+epoch 30 finished, best_loss=4.225813388824463.
+epoch 31 finished, best_loss=4.225813388824463.
+epoch 32 finished, best_loss=4.225813388824463.
+epoch 33 finished, best_loss=4.225813388824463.
+epoch 34 finished, best_loss=4.225813388824463.
+epoch 35 finished, best_loss=4.225813388824463.
+epoch 36 finished, best_loss=4.225813388824463.
+epoch 37 finished, best_loss=4.225813388824463.
+epoch 38 finished, best_loss=4.225813388824463.
+epoch 39 finished, best_loss=4.225813388824463.
+epoch 40 finished, best_loss=4.225813388824463.
+epoch 41 finished, best_loss=4.225813388824463.
+epoch 42 finished, best_loss=4.225813388824463.
+epoch 43 finished, best_loss=4.225813388824463.
+epoch 44 finished, best_loss=4.225813388824463.
+epoch 45 finished, best_loss=4.225813388824463.
+epoch 46 finished, best_loss=4.225813388824463.
+epoch 47 finished, best_loss=4.225813388824463.
+epoch 48 finished, best_loss=4.225813388824463.
+epoch 49 finished, best_loss=4.225813388824463.
+epoch 50 finished, best_loss=4.220452308654785.
+epoch 51 finished, best_loss=4.204475402832031.
+epoch 52 finished, best_loss=4.204475402832031.
+epoch 53 finished, best_loss=4.204475402832031.
+epoch 54 finished, best_loss=4.204475402832031.
+epoch 55 finished, best_loss=4.204475402832031.
+epoch 56 finished, best_loss=4.204475402832031.
+epoch 57 finished, best_loss=4.204475402832031.
+epoch 58 finished, best_loss=4.204475402832031.
+epoch 59 finished, best_loss=4.204475402832031.
+epoch 60 finished, best_loss=4.204475402832031.
+epoch 61 finished, best_loss=4.204475402832031.
+epoch 62 finished, best_loss=4.204475402832031.
+epoch 63 finished, best_loss=4.204475402832031.
+epoch 64 finished, best_loss=4.204475402832031.
+epoch 65 finished, best_loss=4.204475402832031.
+epoch 66 finished, best_loss=4.204475402832031.
+epoch 67 finished, best_loss=4.204475402832031.
+epoch 68 finished, best_loss=4.204475402832031.
+epoch 69 finished, best_loss=4.204475402832031.
+epoch 70 finished, best_loss=4.204475402832031.
+epoch 71 finished, best_loss=4.204475402832031.
+epoch 72 finished, best_loss=4.204475402832031.
+epoch 73 finished, best_loss=4.204475402832031.
+epoch 74 finished, best_loss=4.204475402832031.
+epoch 75 finished, best_loss=4.204475402832031.
+epoch 76 finished, best_loss=4.204475402832031.
+epoch 77 finished, best_loss=4.204475402832031.
+epoch 78 finished, best_loss=4.204475402832031.
+epoch 79 finished, best_loss=4.204475402832031.
+epoch 80 finished, best_loss=4.204475402832031.
+epoch 81 finished, best_loss=4.204475402832031.
+epoch 82 finished, best_loss=4.111177444458008.
+epoch 83 finished, best_loss=4.111177444458008.
+epoch 84 finished, best_loss=4.111177444458008.
+epoch 85 finished, best_loss=4.111177444458008.
+epoch 86 finished, best_loss=4.111177444458008.
+epoch 87 finished, best_loss=4.111177444458008.
+epoch 88 finished, best_loss=4.111177444458008.
+epoch 89 finished, best_loss=4.111177444458008.
+epoch 90 finished, best_loss=4.111177444458008.
+epoch 91 finished, best_loss=4.111177444458008.
+epoch 92 finished, best_loss=4.111177444458008.
+epoch 93 finished, best_loss=4.111177444458008.
+epoch 94 finished, best_loss=4.111177444458008.
+epoch 95 finished, best_loss=4.111177444458008.
+epoch 96 finished, best_loss=4.111177444458008.
+epoch 97 finished, best_loss=4.111177444458008.
+epoch 98 finished, best_loss=4.111177444458008.
+epoch 99 finished, best_loss=4.111177444458008.
+epoch 100 finished, best_loss=4.111177444458008.
+epoch 101 finished, best_loss=4.111177444458008.
+epoch 102 finished, best_loss=4.111177444458008.
+epoch 103 finished, best_loss=4.035492420196533.
+epoch 104 finished, best_loss=4.035492420196533.
+epoch 105 finished, best_loss=4.035492420196533.
+epoch 106 finished, best_loss=4.035492420196533.
+epoch 107 finished, best_loss=4.035492420196533.
+epoch 108 finished, best_loss=4.035492420196533.
+epoch 109 finished, best_loss=4.035492420196533.
+epoch 110 finished, best_loss=3.777285099029541.
+epoch 111 finished, best_loss=3.777285099029541.
+epoch 112 finished, best_loss=3.777285099029541.
+epoch 113 finished, best_loss=3.777285099029541.
+epoch 114 finished, best_loss=3.7431578636169434.
+epoch 115 finished, best_loss=3.669837236404419.
+epoch 116 finished, best_loss=3.529113531112671.
+epoch 117 finished, best_loss=3.529113531112671.
+epoch 118 finished, best_loss=3.4158284664154053.
+epoch 119 finished, best_loss=3.313809394836426.
+epoch 120 finished, best_loss=3.2822914123535156.
+epoch 121 finished, best_loss=3.2406790256500244.
+epoch 122 finished, best_loss=3.2406790256500244.
+epoch 123 finished, best_loss=3.1418676376342773.
+epoch 124 finished, best_loss=3.0771772861480713.
+epoch 125 finished, best_loss=3.055015802383423.
+epoch 126 finished, best_loss=3.008317470550537.
+epoch 127 finished, best_loss=2.9204938411712646.
+epoch 128 finished, best_loss=2.8901684284210205.
+epoch 129 finished, best_loss=2.8760061264038086.
+epoch 130 finished, best_loss=2.821354866027832.
+epoch 131 finished, best_loss=2.7673356533050537.
+epoch 132 finished, best_loss=2.7033016681671143.
+epoch 133 finished, best_loss=2.681638479232788.
+epoch 134 finished, best_loss=2.603285074234009.
+epoch 135 finished, best_loss=2.5917141437530518.
+epoch 136 finished, best_loss=2.5052707195281982.
+epoch 137 finished, best_loss=2.474121570587158.
+epoch 138 finished, best_loss=2.423379421234131.
+epoch 139 finished, best_loss=2.3751678466796875.
+epoch 140 finished, best_loss=2.340304374694824.
+epoch 141 finished, best_loss=2.2734169960021973.
+epoch 142 finished, best_loss=2.239933490753174.
+epoch 143 finished, best_loss=2.191002607345581.
+epoch 144 finished, best_loss=2.1576836109161377.
+epoch 145 finished, best_loss=2.108142137527466.
+epoch 146 finished, best_loss=2.060438871383667.
+epoch 147 finished, best_loss=2.0258235931396484.
+epoch 148 finished, best_loss=1.9887033700942993.
+epoch 149 finished, best_loss=1.9418230056762695.
+epoch 150 finished, best_loss=1.897982120513916.
+epoch 151 finished, best_loss=1.8615150451660156.
+epoch 152 finished, best_loss=1.8299750089645386.
+epoch 153 finished, best_loss=1.7827470302581787.
+epoch 154 finished, best_loss=1.74248206615448.
+epoch 155 finished, best_loss=1.709525227546692.
+epoch 156 finished, best_loss=1.6754988431930542.
+epoch 157 finished, best_loss=1.6340432167053223.
+epoch 158 finished, best_loss=1.6074037551879883.
+epoch 159 finished, best_loss=1.5621585845947266.
+epoch 160 finished, best_loss=1.5218658447265625.
+epoch 161 finished, best_loss=1.5010184049606323.
+epoch 162 finished, best_loss=1.4865317344665527.
+epoch 163 finished, best_loss=1.463331699371338.
+epoch 164 finished, best_loss=1.4433234930038452.
+epoch 165 finished, best_loss=1.4320080280303955.
+epoch 166 finished, best_loss=1.4068336486816406.
+epoch 167 finished, best_loss=1.3870301246643066.
+epoch 168 finished, best_loss=1.3700164556503296.
+epoch 169 finished, best_loss=1.347949743270874.
+epoch 170 finished, best_loss=1.3302133083343506.
+epoch 171 finished, best_loss=1.3104279041290283.
+epoch 172 finished, best_loss=1.2948359251022339.
+epoch 173 finished, best_loss=1.2743600606918335.
+04/13/22 10:42:42
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=-44589457080320.0.
+epoch 2 finished, best_loss=-6428368819978240.0.
+epoch 3 finished, best_loss=-6428369893720064.0.
+epoch 4 finished, best_loss=-6428370430590976.0.
+epoch 5 finished, best_loss=-6428370430590976.0.
+04/13/22 10:44:33
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.5186550617218018.
+epoch 2 finished, best_loss=2.392274856567383.
+epoch 3 finished, best_loss=2.282890796661377.
+epoch 4 finished, best_loss=2.175809144973755.
+epoch 5 finished, best_loss=2.0382182598114014.
+epoch 6 finished, best_loss=2.0382182598114014.
+epoch 7 finished, best_loss=1.7808493375778198.
+epoch 8 finished, best_loss=1.6440528631210327.
+epoch 9 finished, best_loss=1.546230673789978.
+epoch 10 finished, best_loss=1.3747273683547974.
+epoch 11 finished, best_loss=1.2292717695236206.
+04/13/22 10:54:28
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.802750825881958.
+epoch 2 finished, best_loss=2.6379599571228027.
+epoch 3 finished, best_loss=2.4904403686523438.
+epoch 4 finished, best_loss=2.342027425765991.
+epoch 5 finished, best_loss=2.1956021785736084.
+epoch 6 finished, best_loss=1.9954384565353394.
+epoch 7 finished, best_loss=1.8447630405426025.
+epoch 8 finished, best_loss=1.686882495880127.
+epoch 9 finished, best_loss=1.567004680633545.
+epoch 10 finished, best_loss=1.3467482328414917.
+04/13/22 10:56:41
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=2.653916835784912.
+epoch 2 finished, best_loss=2.5135881900787354.
+epoch 3 finished, best_loss=2.386897325515747.
+epoch 4 finished, best_loss=2.2718865871429443.
+epoch 5 finished, best_loss=2.122342109680176.
+epoch 6 finished, best_loss=1.9802354574203491.
+epoch 7 finished, best_loss=1.8481427431106567.
+epoch 8 finished, best_loss=1.7089546918869019.
+epoch 9 finished, best_loss=1.5403329133987427.
+epoch 10 finished, best_loss=1.3937709331512451.
+04/13/22 11:05:49
+{'num_types': 22, 'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128}
+epoch 1 finished, best_loss=3.2184767723083496.
+epoch 2 finished, best_loss=2.9543685913085938.
+epoch 3 finished, best_loss=2.738321304321289.
+epoch 4 finished, best_loss=2.5454294681549072.
+epoch 5 finished, best_loss=2.369065284729004.
+epoch 6 finished, best_loss=2.1757099628448486.
+epoch 7 finished, best_loss=2.001736879348755.
+epoch 8 finished, best_loss=1.8190921545028687.
+epoch 9 finished, best_loss=1.6822524070739746.
+epoch 10 finished, best_loss=1.4566154479980469.
