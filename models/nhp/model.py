@@ -57,9 +57,9 @@ class NHP(nn.Module):
         decayed_hs = torch.stack(decayed_hs, dim=1) # 2-seq_len
         type_intensities = self.intensity_layer(decayed_hs) # 2-seq_len
         type_seq = type_seq[:, 1:] # (batch_size, max_len) 2-seq_len
-        type_intensities = torch.cat([torch.ones(batch_size, max_len, 1, device=device), type_intensities], dim=-1)
+        type_intensities = torch.cat([torch.ones(batch_size, max_len-1, 1, device=device), type_intensities], dim=-1)
         event_intensities = type_intensities[torch.arange(batch_size)[:,None], 
-                    torch.arange(max_len)[None,:], type_seq] # (batch_size, max_len)
+                    torch.arange(max_len-1)[None,:], type_seq] # (batch_size, max_len-1)
         event_intensities.clamp_(1e-10)
         log_intensities = torch.log(event_intensities) # 2-seq_len
         log_intensities.masked_fill_(mask[:, 1:], 0)
@@ -71,13 +71,13 @@ class NHP(nn.Module):
         # lists of (batch_size, hidden_dim)
         # (batch_size, max_len-1, samples_per_interval, hidden_dim) 1 -- seq_len-1
         updated_cells = torch.stack(updated_cells, dim=1)[:, :, None, :]\
-                .expand(batch_size, max_len, n_sample, self.hidden_dim)
+                .expand(batch_size, max_len-1, n_sample, self.hidden_dim)
         updated_cell_bars = torch.stack(updated_cell_bars, dim=1)[:, :, None, :]\
-                .expand(batch_size, max_len, n_sample, self.hidden_dim)
+                .expand(batch_size, max_len-1, n_sample, self.hidden_dim)
         updated_deltas = torch.stack(updated_deltas, dim=1)[:, :, None, :]\
-                .expand(batch_size, max_len, n_sample, self.hidden_dim)
+                .expand(batch_size, max_len-1, n_sample, self.hidden_dim)
         updated_output_gates = torch.stack(updated_output_gates, dim=1)[:, :, None, :]\
-                .expand(batch_size, max_len, n_sample, self.hidden_dim)
+                .expand(batch_size, max_len-1, n_sample, self.hidden_dim)
         sample_decayed_hs, _ = decay(updated_cells, updated_cell_bars, updated_deltas, updated_output_gates, dtime_samples.unsqueeze(-1))
         # (batch_size, max_len-1, sample_per_intervals, num_types)
         sample_intensities = self.intensity_layer(sample_decayed_hs) # 1-seq_len-1

@@ -30,7 +30,7 @@ class LogNormMixTPP(nn.Module):
         dtimes = time_seq[:, 1:] - time_seq[:, :-1] # 2-seq_len
         dtimes.masked_fill_(mask[:, 1:], 0)
         dtimes.clamp_(1e-10)
-        temporal = torch.cat([torch.zeros(batch_size, 1, device=device), dtimes], dim=1).log() # 1-seq_len
+        temporal = torch.cat([torch.ones(batch_size, 1, device=device)*1e-10, dtimes], dim=1).log() # 1-seq_len
         embed_seq = torch.cat([embed_seq, temporal.unsqueeze(-1)], dim=-1) # 1-seq_len
         self.rnn.flatten_parameters()
         all_encs = self.rnn(embed_seq)[0] # (batch_size, seq_len, hidden_dim) 1-seq_len
@@ -79,6 +79,7 @@ class LogNormMixTPP(nn.Module):
         type_pred = torch.argmax(type_logits, dim=-1) + 1 # (batch_size, seq_len) 2-seq_len+1
         type_pred.masked_fill_(mask, 0)
         time_pred = inter_time_dist.mean # (batch_size, seq_len) 2-seq_len+1
+        time_pred.masked_fill_(mask, 0)
         return type_pred, time_pred
 
     # def predict(self, type_seq, time_seq):

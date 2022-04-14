@@ -13,6 +13,7 @@ class RMTPP(nn.Module):
         n_samples_pred = config['n_samples_pred'] if 'n_sample_pred' in config else 1000
         self.max_t = max_t
         self.n_samples_pred = n_samples_pred
+        # TODO: Change LSTM to the proposed RELU RNN
         self.embed = nn.Embedding(num_types+1, embed_dim, padding_idx=0)
         self.lstm = nn.LSTM(input_size=embed_dim+1, hidden_size=hidden_dim,
                             batch_first=True, bidirectional=False)
