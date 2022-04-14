@@ -1,28 +1,20 @@
 import torch
 from torch import nn
-from .modules.conv import LocalConv
 from .modules.lognorm import LogNormMix
 from torch.distributions import Categorical
 
-class ConvTPP(nn.Module):
+class LogNormMixTPP(nn.Module):
     def __init__(self, config):
         """
         Required arguments:
-            num_types, embed_dim, hidden_dim, num_channel, horizon, num_component,
+            num_types, embed_dim, hidden_dim, num_component,
         """
-        super(ConvTPP, self).__init__()
+        super(LogNormMixTPP, self).__init__()
         num_types = config['num_types']
         embed_dim = config['embed_dim']
         hidden_dim = config['hidden_dim']
-        num_channel = config['num_channel']
-        horizon = config['horizon']
         num_component = config['num_component']
         self.embed = nn.Embedding(num_types+1, embed_dim, padding_idx=0)
-        siren_dim = config['siren_dim'] if 'siren_dim' in config else 32
-        siren_layers = config['siren_layers'] if 'siren_layers' in config else 3
-        self.conv = LocalConv(d_model=embed_dim, siren_hid=siren_dim, 
-                            siren_hid_num=siren_layers, num_channel=num_channel, 
-                            horizon=horizon)
         self.rnn = nn.GRU(input_size=embed_dim+1, hidden_size=hidden_dim, 
                     batch_first=True)
         self.time_stack = nn.Linear(hidden_dim, 3*num_component)
@@ -38,7 +30,6 @@ class ConvTPP(nn.Module):
         dtimes = time_seq[:, 1:] - time_seq[:, :-1] # 2-seq_len
         dtimes.masked_fill_(mask[:, 1:], 0)
         dtimes.clamp_(1e-10)
-        embed_seq = self.conv(embed_seq, time_seq, mask) # 1-seq_len
         temporal = torch.cat([torch.zeros(batch_size, 1, device=device), dtimes], dim=1).log() # 1-seq_len
         embed_seq = torch.cat([embed_seq, temporal.unsqueeze(-1)], dim=-1) # 1-seq_len
         self.rnn.flatten_parameters()

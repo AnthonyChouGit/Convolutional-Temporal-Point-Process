@@ -18,10 +18,10 @@ class CTLSTM(nn.Module):
         Args:
             embeds (batch_size, max_len , embed_dim): input embeddings
             dtimes(batch_size, max_len): Time intervals after each event given by embeds
-        inputs: 0 -- seq_len-1
-        d_times: 1 -- seq_len
-        updated_states: 0 -- seq_len-1
-        decayed_hs: 1 -- seq_len
+        inputs: 1 -- seq_len-1
+        d_times: 2 -- seq_len
+        updated_states: 1 -- seq_len-1
+        decayed_hs: 2 -- seq_len
         """
         batch_size, max_len, embed_dim = embeds.size()
         device = self.device_indicator.device

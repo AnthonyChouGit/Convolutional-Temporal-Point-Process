@@ -26,27 +26,16 @@ class TPP(nn.Module):
         self.register_buffer('device_indicator', torch.empty(0))
 
     def compute_loss(self, type_seq, time_seq):
-        device = self.device_indicator.device
-        type_seq, time_seq = processSeq(type_seq, time_seq, self.num_types+1)
-        # type_seq = type_seq.to(device)
-        # embed_seq = self.embed(type_seq)
+        type_seq, time_seq = processSeq(type_seq, time_seq)
         loss = self.model.compute_loss(type_seq, time_seq)
         return loss
 
 
-    def predict(self, type_seq, time_seq):
-        device = self.device_indicator.device
-        type_seq, time_seq = processSeq(type_seq.unsqueeze(0), time_seq.unsqueeze(0), self.num_types+1)
-        type_seq = type_seq.flatten()
-        time_seq = time_seq.flatten()
-        # type_seq = type_seq.to(device)
-        # embed_seq = self.embed(type_seq)
+    def predict(self, type_seq, time_seq): 
         return self.model.predict(type_seq, time_seq)
 
-def processSeq(type_seq, time_seq, sos_ind):
-    device = type_seq.device
-    batch_size = type_seq.shape[0]
+def processSeq(type_seq, time_seq): # TODO: no longer predict or calculate loss for the first event
     time_seq = time_seq - time_seq[:, 0].view(-1, 1)
-    type_seq = torch.cat([torch.ones(batch_size, 1, device=device) * sos_ind, type_seq], dim=1).long()
-    time_seq = torch.cat([torch.zeros(batch_size, 1, device=device), time_seq], dim=1)
+    mask = type_seq.eq(0)
+    time_seq.masked_fill_(mask, 0)
     return type_seq, time_seq
