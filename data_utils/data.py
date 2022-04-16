@@ -67,7 +67,7 @@ def get_dataloader(data, batch_size, shuffle=True, max_len=None):
     )
     return dl
 
-def prepare_dataloader(data_dir, train_batch_size, eval_batch_size, max_len=None):
+def prepare_dataloader(data_dir, train_batch_size, eval_batch_size, pred_batch_size, max_len=None):
     def load_data(name, dict_name):
         with open(name, 'rb') as f:
             data = pickle.load(f, encoding='latin-1')
@@ -83,4 +83,5 @@ def prepare_dataloader(data_dir, train_batch_size, eval_batch_size, max_len=None
     train_eval_loader = get_dataloader(train_data, eval_batch_size, shuffle=False, max_len=max_len)
     dev_loader = get_dataloader(dev_data, eval_batch_size, shuffle=False, max_len=max_len)
     test_loader = get_dataloader(test_data, eval_batch_size, shuffle=False, max_len=max_len)
-    return train_loader, train_eval_loader, dev_loader, test_loader, num_types
+    pred_loader = get_dataloader(test_data, pred_batch_size, shuffle=False, max_len=max_len)
+    return train_loader, train_eval_loader, dev_loader, test_loader, pred_loader, num_types

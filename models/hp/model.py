@@ -24,8 +24,8 @@ class HP(nn.Module):
         Ahat = self.softplus(self.alpha) # (num_types+1, num_types+1)
         omega = self.softplus(self.beta) # (1)
         batch_size, seq_len = type_seq.size()
-        event_mus = mhat[type_seq[:, 1:]] # 1-seq_len (batch_size, seq_len)
-        dt = time_seq[:, :, None] - time_seq[:, None, :] # (batch_size, seq_len, seq_len)
+        event_mus = mhat[type_seq[:, 1:]] # 2-seq_len (batch_size, seq_len)
+        dt = time_seq[:, :, None] - time_seq[:, None, :] # (batch_size, seq_len, seq_len) 2-seq_len
         sub_mask = get_subsequent_mask(seq_len).to(device) # (seq_len, seq_len)
         mask = type_seq.eq(0)
         dt.masked_fill_(sub_mask, 0) 
@@ -66,7 +66,8 @@ class HP(nn.Module):
         omega = self.softplus(self.beta) # (1)
         batch_size, seq_len = type_seq.size()
         n_samples = self.n_samples_pred
-        max_t = time_seq.max(dim=1)[0] # (batch_size) 
+        # max_t = time_seq.max(dim=1)[0] # (batch_size) 
+        max_t = self.max_t
         dt_vals = torch.linspace(0, max_t, n_samples+1).to(device) # (n_samples+1)
         dt_vals = dt_vals[None, None, :].expand(batch_size, seq_len, n_samples+1)
         sample_t = dt_vals + time_seq[:, :, None] # (batch_size, seq_len, n_samples+1)
@@ -87,7 +88,8 @@ class HP(nn.Module):
         rates = mhat[None, :, None, None] + ag
         rates = rates[:, 1:, :, :]
         type_sum_rates = rates.sum(1) # (batch_size, seq_len, n_samples+1)
-        int_base = mhat[:, None] * dt_vals[None, :] # (num_types+1, n_samples+1)
+        int_base = mhat[:, None] * dt_vals[0, 0, :][None, :] # (num_types+1, n_samples+1)
+        
         # int_kernel: (batch_size, seq_len, num_types+1, n_samples+1)
         time_seq_diff = time_seq[:, :, None] - time_seq[:, None, :] # (batch_size, seq_len, seq_len)
         time_seq_diff.masked_fill_(sub_mask, 0)

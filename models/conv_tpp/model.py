@@ -1,5 +1,5 @@
 import torch
-from torch import clamp, nn
+from torch import nn
 from .modules.conv import LocalConv
 from .modules.lognorm import LogNormMix
 from torch.distributions import Categorical
