@@ -4,6 +4,7 @@ from .nhp.model import NHP
 from .conv_tpp.model import ConvTPP
 from .hp.model import HP
 from .rmtpp.model import RMTPP
+from .log_norm_mix.model import LogNormMixTPP
 
 class TPP(nn.Module):
     def __init__(self, config):
@@ -21,6 +22,8 @@ class TPP(nn.Module):
             self.model = HP(config)
         elif model_name.lower() == 'rmtpp':
             self.model = RMTPP(config)
+        elif model_name.lower() == 'log-norm-mix':
+            self.model = LogNormMixTPP(config)
         else:
             raise NotImplementedError(f'{model_name} is not implemented.')
         self.register_buffer('device_indicator', torch.empty(0))

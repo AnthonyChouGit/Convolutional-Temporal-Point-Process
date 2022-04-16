@@ -7,6 +7,7 @@ from torch.optim.lr_scheduler import StepLR
 from datetime import datetime
 from tqdm import tqdm
 import math
+import os
 
 class Tester:
     def __init__(self, config, data_dir, device, model_name, max_len=None, max_epoch=400, 
@@ -75,6 +76,9 @@ class Tester:
     
     def loadModel(self):
         self.model.load_state_dict(torch.load(f'state_dicts/{self.model_name}'))
+
+    def modelExists(self):
+        return os.path.exists(f'state_dicts/{self.model_name}')
 
     def testNll(self):
         self.loadModel()
