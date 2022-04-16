@@ -48,6 +48,7 @@ class Tester:
                 optimizer.zero_grad()
                 loss = self.model.compute_loss(event_type, event_time)
                 loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), 2.)
                 optimizer.step()
             scheduler.step()
             with torch.no_grad():
