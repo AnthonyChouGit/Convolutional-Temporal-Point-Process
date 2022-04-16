@@ -56,7 +56,9 @@ config = {
     'model': 'conv-tpp',
     'num_channel':3,
     'horizon': [[16, 32, math.inf], [16, 32, math.inf], [16, 32, math.inf]],
-    'num_component': 64
+    'num_component': 64,
+    'max_t': 8.,
+    'n_samples_pred': 100.
 }
 tester = Tester(config, data_dir, device, 'lognorm-1', max_len, max_epoch=1000, batch_size=batch_size, eval_batch_size=eval_batch_size,
         pred_batch_size=pred_batch_size, lr_step=30, init_lr=5e-4)
