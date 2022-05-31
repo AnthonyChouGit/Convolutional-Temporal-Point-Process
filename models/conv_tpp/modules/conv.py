@@ -52,6 +52,22 @@ class LocalConvLayer(nn.Module):
         self.norm = nn.LayerNorm(d_model)
         self.num_channel = num_channel
 
+    def kernel_forward(self, dt):
+        """
+            dt: (n)
+        """
+        if isinstance(self.horizon, list):
+            # horizon:(num_channel,)
+            # horizon_mask: (n, num_channel)
+            horizon_mask = (dt[:, None] > torch.tensor(self.horizon, device=dt.device)[None, :])
+        else:
+            # horizon: 1
+            # horizon_mask: (n, 1)
+            horizon_mask = (dt > self.horizon).unsqueeze(-1)
+        kernel = self.siren(dt.unsqueeze(-1)) # (n, num_channel)
+        kernel.masked_fill_(horizon_mask, 0)
+        return kernel
+
     def forward(self, embed_seq, time_seq, mask):
         """
             embed_seq: (batch_size, seq_len, d_model)

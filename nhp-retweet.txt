@@ -1,0 +1,2 @@
+All done. Test_loss=6.481321334838867, type_loss=0.0, dt_loss=0.0.
+All done. ACC=0.5805701768574189, RMSE=16600.848256942227.

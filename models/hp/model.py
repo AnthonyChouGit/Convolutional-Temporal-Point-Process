@@ -54,7 +54,7 @@ class HP(nn.Module):
         au_int_kernel.masked_fill_(mask, 0)
         compensator = compensator_baseline + au_int_kernel.sum(1)
         nll = compensator.sum() - torch.log(rates).sum()
-        return nll
+        return nll, 0, 0
 
     # Need to  be examined before testing
     def predict(self, type_seq, time_seq):

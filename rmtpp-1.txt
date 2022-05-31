@@ -1,5 +1,0 @@
-04/17/22 00:42:17
-{'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128, 'max_t': 8.0, 'n_samples_pred': 100.0, 'num_types': 22}
-04/17/22 00:47:33
-{'model': 'rmtpp', 'embed_dim': 64, 'hidden_dim': 64, 'mlp_dim': 128, 'max_t': 8.0, 'n_samples_pred': 100.0, 'num_types': 22}
-epoch 30 finished, best_loss=2.3174636363983154.

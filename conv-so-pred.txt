@@ -1,0 +1,8 @@
+05/31/22 16:22:00
+{'embed_dim': 64, 'hidden_dim': 64, 'model': 'conv-tpp-pred', 'num_channel': 3, 'horizon': [4, 8, 16, 32], 'num_component': 64, 'gamma': 1.0, 'num_types': 22}
+05/31/22 16:22:44
+{'embed_dim': 64, 'hidden_dim': 64, 'model': 'conv-tpp-pred', 'num_channel': 3, 'horizon': [4, 8, 16, 32], 'num_component': 64, 'gamma': 1.0, 'num_types': 22}
+05/31/22 16:24:13
+{'embed_dim': 64, 'hidden_dim': 64, 'model': 'conv-tpp-pred', 'num_channel': 3, 'horizon': [4, 8, 16, 32], 'num_component': 64, 'gamma': 1.0, 'num_types': 22}
+05/31/22 16:26:18
+{'embed_dim': 64, 'hidden_dim': 64, 'model': 'conv-tpp-pred', 'num_channel': 3, 'horizon': [4, 8, 16, 32], 'num_component': 64, 'gamma': 1.0, 'num_types': 22}

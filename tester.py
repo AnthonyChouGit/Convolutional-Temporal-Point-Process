@@ -1,3 +1,4 @@
+from statistics import mean
 from data_utils.data import prepare_dataloader
 from models.model import TPP
 from eval_utils.eval import evalNll, evalPred
@@ -29,7 +30,7 @@ class Tester:
         self.threshold = threshold
         self.config = config
 
-        self.train_data, _,  self.dev_data, self.test_data, self.pred_loader, self.num_types = prepare_dataloader(data_dir, batch_size, eval_batch_size, pred_batch_size, max_len)
+        self.train_data, self.eval_train_data,  self.dev_data, self.test_data, self.pred_loader, self.num_types = prepare_dataloader(data_dir, batch_size, eval_batch_size, pred_batch_size, max_len)
         config['num_types'] = self.num_types
         self.model = TPP(config).to(device)
 
@@ -46,13 +47,13 @@ class Tester:
             for ind, batch in enumerate(self.train_data):
                 event_time, _, event_type = batch
                 optimizer.zero_grad()
-                loss = self.model.compute_loss(event_type, event_time)
+                loss, _, _ = self.model.compute_loss(event_type, event_time)
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), 2.)
                 optimizer.step()
             scheduler.step()
             with torch.no_grad():
-                dev_loss = evalNll(self.model, self.dev_data)
+                dev_loss, _, _ = evalNll(self.model, self.dev_data)
                 if (best_loss - dev_loss) < self.threshold: 
                     impatient += 1
                     if dev_loss < best_loss:
@@ -81,13 +82,38 @@ class Tester:
     def modelExists(self):
         return os.path.exists(f'state_dicts/{self.model_name}')
 
+    @property
+    def data_stats(self):
+        with torch.no_grad():
+            train_seq_num = 0
+            seq_lens = list()
+            for batch in self.eval_train_data:
+                _, _, event_type = batch
+                train_seq_num += event_type.shape[0]
+                batch_seq_lens = event_type.ne(0).sum(1).tolist()
+                seq_lens.extend(batch_seq_lens)
+            dev_seq_num = 0
+            for batch in self.dev_data:
+                _, _, event_type = batch
+                dev_seq_num += event_type.shape[0]
+                batch_seq_lens = event_type.ne(0).sum(1).tolist()
+                seq_lens.extend(batch_seq_lens)
+            test_seq_num = 0
+            for batch in self.dev_data:
+                _, _, event_type = batch
+                test_seq_num += event_type.shape[0]
+                batch_seq_lens = event_type.ne(0).sum(1).tolist()
+                seq_lens.extend(batch_seq_lens)
+        return self.num_types, min(seq_lens), mean(seq_lens), max(seq_lens), \
+                train_seq_num, dev_seq_num, test_seq_num
+
     def testNll(self):
         self.loadModel()
         with torch.no_grad():
-            test_loss = evalNll(self.model, self.test_data)
-        print(f'All done. Test_loss={test_loss}.')
+            test_loss, type_loss, dt_loss = evalNll(self.model, self.test_data)
+        print(f'All done. Test_loss={test_loss}, type_loss={type_loss}, dt_loss={dt_loss}.')
         with open(f'{self.model_name}.txt', 'a') as f:
-            f.write(f'All done. Test_loss={test_loss}.\n')
+            f.write(f'All done. Test_loss={test_loss}, type_loss={type_loss}, dt_loss={dt_loss}.\n')
         # TODO: test NLL and prediction error
 
     def testPred(self):

@@ -4,14 +4,18 @@ def evalNll(model, dataloader):
     model.eval()
     total_event_num = 0
     total_loss = 0.
+    total_type_loss = 0.
+    total_dt_loss = 0.
     for batch in dataloader:
         event_time, _, event_type = batch
         event_num = event_type[:, 1:].ne(0).sum().item()
-        loss = model.compute_loss(event_type, event_time)
+        loss, type_loss, dt_loss = model.compute_loss(event_type, event_time)
         total_event_num += event_num
         total_loss += loss
+        total_type_loss += type_loss
+        total_dt_loss += dt_loss
     model.train()
-    return total_loss / total_event_num
+    return total_loss / total_event_num, total_type_loss / total_event_num, total_dt_loss / total_event_num
 
 def evalPred(model, dataloader):
     model.eval()

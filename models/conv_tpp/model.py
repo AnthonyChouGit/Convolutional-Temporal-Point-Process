@@ -1,8 +1,9 @@
 import torch
-from torch import nn
+from torch import nn, no_grad
 from .modules.conv import LocalConv
 from .modules.lognorm import LogNormMix
 from torch.distributions import Categorical
+import matplotlib.pyplot as plt 
 
 class ConvTPP(nn.Module):
     def __init__(self, config):
@@ -17,6 +18,10 @@ class ConvTPP(nn.Module):
         num_channel = config['num_channel']
         horizon = config['horizon']
         num_component = config['num_component']
+        plot_samples = config['plot_samples'] if 'plot_samples' in config else 10000
+        self.horizon = horizon
+        self.num_channel = num_channel
+        self.plot_samples = plot_samples
         self.embed = nn.Embedding(num_types+1, embed_dim, padding_idx=0)
         siren_dim = config['siren_dim'] if 'siren_dim' in config else 32
         siren_layers = config['siren_layers'] if 'siren_layers' in config else 3
@@ -39,7 +44,7 @@ class ConvTPP(nn.Module):
         dtimes.masked_fill_(mask[:, 1:], 0)
         dtimes.clamp_(1e-10)
         embed_seq = self.conv(embed_seq, time_seq, mask) # 1-seq_len
-        temporal = torch.cat([torch.ones(batch_size, 1, device=device)*1e-10, dtimes], dim=1).log() # 1-seq_len
+        temporal = torch.cat([torch.ones(batch_size, 1, device=device)*1e-10, dtimes], dim=1) #TODO: .log() 1-seq_len
         embed_seq = torch.cat([embed_seq, temporal.unsqueeze(-1)], dim=-1) # 1-seq_len
         self.rnn.flatten_parameters()
         all_encs = self.rnn(embed_seq)[0] # (batch_size, seq_len, hidden_dim) 1-seq_len
@@ -65,16 +70,25 @@ class ConvTPP(nn.Module):
         mask = type_seq.eq(0) # 1-seq_len
         dtimes = time_seq[:, 1:] - time_seq[:, :-1] # 2-seq_len
         dtimes.masked_fill_(mask[:, 1:], 0)
+        # print(dtimes.masked_select(~mask[:, 1:]).mean())
+        # print(dtimes.masked_select(~mask[:, 1:]).max())
+        # print(dtimes.masked_select(~mask[:, 1:]).min())
+        # print(dtimes.masked_select(~mask[:, 1:]).median())
         dtimes.clamp_(1e-10)
 
         type_dist, inter_time_dist = self.decode(all_encs) # 2-seq_len
 
         time_log_probs = inter_time_dist.log_prob(dtimes) # 2-seq_len
+        time_log_probs.masked_fill_(mask[:, 1:], 0)
         temp_mark = (type_seq.masked_fill(mask, 1) - 1)[:, 1:] # 2-seq_len
         type_log_probs = type_dist.log_prob(temp_mark) # 2-seq_len
-        log_probs = time_log_probs + type_log_probs
-        log_probs.masked_fill_(mask[:, 1:], 0)
-        return -log_probs.sum()
+        type_log_probs.masked_fill_(mask[:, 1:], 0)
+        # log_probs = time_log_probs + type_log_probs
+        # log_probs.masked_fill_(mask[:, 1:], 0)
+        time_loss = -time_log_probs.sum()
+        type_loss = -type_log_probs.sum()
+        loss = time_loss + type_loss
+        return loss, type_loss, time_loss
 
     def predict(self, type_seq, time_seq):
         device = self.device_indicator.device
@@ -86,11 +100,39 @@ class ConvTPP(nn.Module):
         type_dist, inter_time_dist = self.decode(all_encs) # 2-seq_len+1
         type_logits = type_dist.logits
         type_pred = torch.argmax(type_logits, dim=-1) + 1 # (batch_size, seq_len) 2-seq_len+1
-        type_pred.masked_fill_(mask, 0)
-        time_pred = inter_time_dist.mean # (batch_size, seq_len) 2-seq_len+1
-        time_pred.masked_fill_(mask, 0)
+        # type_pred.masked_fill_(mask, 0)
+        # time_pred = inter_time_dist.mean # (batch_size, seq_len) 2-seq_len+1
+        # time_pred.masked_fill_(mask, 0)
+        # type_pred = type_dist.sample()+1
+        time_pred = inter_time_dist.sample()
         return type_pred, time_pred
 
+    def plotKernel(self):
+        self.eval()
+        with torch.no_grad():
+            device = self.device_indicator.device
+            num_layers = len(self.horizon)
+            for i in range(num_layers):
+                if isinstance(self.horizon[i], list):
+                    max_dt = torch.max(self.horizon[i]).item()
+                else:
+                    max_dt = self.horizon[i]
+                dt_vals = torch.linspace(0, max_dt, self.plot_samples+1).to(device)
+                kern_vals = self.conv.layers[i].kernel_forward(dt_vals)
+                dt_vals = dt_vals.to('cpu').numpy()
+                kern_vals = kern_vals.to('cpu').numpy()
+                plt.rcParams['figure.figsize'] = (6, 6)
+                plt.locator_params(axis='x', nbins=5)
+                for j in range(kern_vals.shape[1]):
+                    plt.plot(dt_vals, kern_vals[:, j], linewidth=2)
+                # plt.xlabel('Δt', fontsize=32)
+                # plt.ylabel('ψ(Δt)', fontsize=32)
+                # plt.title(f'layer {i}', fontsize=25)
+                plt.xticks(fontsize=32)
+                plt.yticks(fontsize=32)
+                plt.savefig(f'figs/layer {i}.jpg', bbox_inches='tight')
+                plt.clf()
+        self.train()
     # def predict(self, type_seq, time_seq):
     #     device = self.device_indicator.device
     #     seq_len = time_seq.shape[0]

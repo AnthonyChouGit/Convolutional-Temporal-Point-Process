@@ -16,9 +16,9 @@ class RMTPP(nn.Module):
         self.n_samples_pred = n_samples_pred
         # TODO: Change LSTM to the proposed RELU RNN
         self.embed = nn.Embedding(num_types+1, embed_dim, padding_idx=0)
-        # self.rnn = nn.LSTM(input_size=embed_dim+1, hidden_size=hidden_dim,
-        #                     batch_first=True, bidirectional=False)
-        self.rnn = ReluRNN(embed_dim+1, hidden_dim)
+        self.rnn = nn.LSTM(input_size=embed_dim+1, hidden_size=hidden_dim,
+                            batch_first=True, bidirectional=False)
+        # self.rnn = ReluRNN(embed_dim+1, hidden_dim)
         self.stack = nn.Sequential(
             nn.Linear(hidden_dim, mlp_dim),
             nn.Tanh(),
@@ -33,7 +33,7 @@ class RMTPP(nn.Module):
         mask = type_seq.eq(0)
         time_seq.masked_fill_(mask, 0)
         lstm_input = torch.cat([embed_seq, time_seq.unsqueeze(-1)], dim=-1)
-        all_encs = self.rnn(lstm_input) # (batch_size, seq_len, hidden_dim) 1-seq_len
+        all_encs, _ = self.rnn(lstm_input) # (batch_size, seq_len, hidden_dim) 1-seq_len
         return all_encs
 
     def compute_loss(self, type_seq, time_seq):
@@ -42,6 +42,7 @@ class RMTPP(nn.Module):
         type_seq = type_seq.to(device)
         time_seq = time_seq.to(device)# 1-seq_len
         mask = type_seq.eq(0)
+        dtimes.masked_fill_(mask[:, 1:, None], 0)
         all_encs = self.encode(type_seq[:, :-1], time_seq[:, :-1]) # 1-seq_len-1
         assert not torch.any(all_encs.isnan())
         assert not torch.any(all_encs.isinf())
@@ -55,6 +56,9 @@ class RMTPP(nn.Module):
         type_log_prob.masked_fill_(mask[:, 1:], 0)
         ewt = -torch.exp(self.dtime_w)
         eiwt = -torch.exp(-self.dtime_w)
+        # assert not torch.any(ewt.isnan())
+        # assert not torch.any(eiwt.isinf())
+        # print(torch.max(dtimes))
         # time_enc: (batch_size, seq_len-1, 1)
         # dtimes: (batch_size, seq_len-1, 1)
         time_log_prob = time_enc + ewt * dtimes  +\
@@ -65,10 +69,13 @@ class RMTPP(nn.Module):
 
         time_log_prob = time_log_prob.squeeze(-1) # (batch_size, seq_len-1)
         time_log_prob.masked_fill_(mask[:, 1:], 0) # 2-seq_len
-        nll = -torch.sum(type_log_prob+time_log_prob)
-        assert not nll.isnan()
-        assert not nll.isinf()
-        return nll
+        # nll = -torch.sum(type_log_prob+time_log_prob)
+        # assert not nll.isnan()
+        # assert not nll.isinf()
+        time_loss = -time_log_prob.sum()
+        type_loss = -type_log_prob.sum()
+        loss = time_loss+type_loss
+        return loss, type_loss, time_loss
 
     def predict(self, type_seq, time_seq):
         device = self.device_indicator.device

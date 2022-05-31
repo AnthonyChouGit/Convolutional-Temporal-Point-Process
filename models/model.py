@@ -5,6 +5,8 @@ from .conv_tpp.model import ConvTPP
 from .hp.model import HP
 from .rmtpp.model import RMTPP
 from .log_norm_mix.model import LogNormMixTPP
+from .conv_tpp_pred.model import ConvTPP_Pred
+from .log_norm_mix_pred.model import LogNormMixTPP_Pred
 
 class TPP(nn.Module):
     def __init__(self, config):
@@ -14,6 +16,8 @@ class TPP(nn.Module):
         # self.embed = nn.Embedding(num_types+2, embed_dim, padding_idx=0)
         self.num_types = num_types
         model_name = config['model']
+        time_ratio = config['time_ratio'] if 'time_ratio' in config else 1
+        self.time_ratio = time_ratio
         if model_name.lower() == 'nhp':
             self.model = NHP(config)
         elif model_name.lower() == 'conv-tpp':
@@ -24,21 +28,26 @@ class TPP(nn.Module):
             self.model = RMTPP(config)
         elif model_name.lower() == 'log-norm-mix':
             self.model = LogNormMixTPP(config)
+        elif model_name.lower() == 'conv-tpp-pred':
+            self.model = ConvTPP_Pred(config)
+        elif model_name.lower() == 'log-norm-mix-pred':
+            self.model = LogNormMixTPP_Pred(config)
         else:
             raise NotImplementedError(f'{model_name} is not implemented.')
         self.register_buffer('device_indicator', torch.empty(0))
 
     def compute_loss(self, type_seq, time_seq):
-        type_seq, time_seq = processSeq(type_seq, time_seq)
-        loss = self.model.compute_loss(type_seq, time_seq)
-        return loss
+        type_seq, time_seq = processSeq(type_seq, time_seq, self.time_ratio)
+        loss, type_loss, dt_loss = self.model.compute_loss(type_seq, time_seq)
+        return loss, type_loss, dt_loss
 
 
     def predict(self, type_seq, time_seq): 
         return self.model.predict(type_seq, time_seq)
 
-def processSeq(type_seq, time_seq): # TODO: no longer predict or calculate loss for the first event
+def processSeq(type_seq, time_seq, time_ratio=1): # TODO: no longer predict or calculate loss for the first event
     time_seq = time_seq - time_seq[:, 0].view(-1, 1)
+    time_seq = time_seq / time_ratio
     mask = type_seq.eq(0)
     time_seq.masked_fill_(mask, 0)
     return type_seq, time_seq

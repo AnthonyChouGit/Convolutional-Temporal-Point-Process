@@ -87,7 +87,7 @@ class NHP(nn.Module):
         assert not torch.any(torch.isinf(integrals))
         nll = torch.sum(integrals) - torch.sum(log_intensities)
 
-        return nll
+        return nll, 0, 0
 
     def predict(self, type_seq, time_seq):
         """

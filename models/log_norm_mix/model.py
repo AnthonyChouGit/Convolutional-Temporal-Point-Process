@@ -30,7 +30,7 @@ class LogNormMixTPP(nn.Module):
         dtimes = time_seq[:, 1:] - time_seq[:, :-1] # 2-seq_len
         dtimes.masked_fill_(mask[:, 1:], 0)
         dtimes.clamp_(1e-10)
-        temporal = torch.cat([torch.ones(batch_size, 1, device=device)*1e-10, dtimes], dim=1).log() # 1-seq_len
+        temporal = torch.cat([torch.ones(batch_size, 1, device=device)*1e-10, dtimes], dim=1) # TODO: .log() 1-seq_len
         embed_seq = torch.cat([embed_seq, temporal.unsqueeze(-1)], dim=-1) # 1-seq_len
         self.rnn.flatten_parameters()
         all_encs = self.rnn(embed_seq)[0] # (batch_size, seq_len, hidden_dim) 1-seq_len
@@ -61,11 +61,16 @@ class LogNormMixTPP(nn.Module):
         type_dist, inter_time_dist = self.decode(all_encs) # 2-seq_len
 
         time_log_probs = inter_time_dist.log_prob(dtimes) # 2-seq_len
+        time_log_probs.masked_fill_(mask[:, 1:], 0)
         temp_mark = (type_seq.masked_fill(mask, 1) - 1)[:, 1:] # 2-seq_len
         type_log_probs = type_dist.log_prob(temp_mark) # 2-seq_len
-        log_probs = time_log_probs + type_log_probs
-        log_probs.masked_fill_(mask[:, 1:], 0)
-        return -log_probs.sum()
+        type_log_probs.masked_fill_(mask[:, 1:], 0)
+        time_loss = -time_log_probs.sum()
+        type_loss = -type_log_probs.sum()
+        loss = time_loss+type_loss
+        # log_probs = time_log_probs + type_log_probs
+        # log_probs.masked_fill_(mask[:, 1:], 0)
+        return loss, type_loss, time_loss
 
     def predict(self, type_seq, time_seq):
         device = self.device_indicator.device
@@ -77,8 +82,12 @@ class LogNormMixTPP(nn.Module):
         type_dist, inter_time_dist = self.decode(all_encs) # 2-seq_len+1
         type_logits = type_dist.logits
         type_pred = torch.argmax(type_logits, dim=-1) + 1 # (batch_size, seq_len) 2-seq_len+1
+        # type_pred.masked_fill_(mask, 0)
+        # time_pred = inter_time_dist.mean # (batch_size, seq_len) 2-seq_len+1
+        # time_pred.masked_fill_(mask, 0)
+        # type_pred = type_dist.sample()+1
+        time_pred = inter_time_dist.sample()
         type_pred.masked_fill_(mask, 0)
-        time_pred = inter_time_dist.mean # (batch_size, seq_len) 2-seq_len+1
         time_pred.masked_fill_(mask, 0)
         return type_pred, time_pred
 
