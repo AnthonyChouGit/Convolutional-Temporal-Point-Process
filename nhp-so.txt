@@ -1,3 +1,6 @@
 All done. Test_loss=2.196989059448242, type_loss=0.0, dt_loss=0.0.
 All done. Test_loss=2.1964781284332275, type_loss=0.0, dt_loss=0.0.
-All done. ACC=0.4485851654170373, RMSE=1.0314077182957495.
+All done. ACC=0.4485851654170373, RMSE=1.0314077182957495.All done. Test_loss=2.19753360748291, type_loss=0.0, dt_loss=0.0.
+All done. Test_loss=2.196916103363037, type_loss=0.0, dt_loss=0.0.
+All done. Test_loss=2.196702480316162, type_loss=0.0, dt_loss=0.0.
+All done. ACC=0.4489134578726649, RMSE=1.0283923013594074.

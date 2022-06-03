@@ -26,6 +26,7 @@ class ConvTPP_Pred(nn.Module):
         siren_dim = config['siren_dim'] if 'siren_dim' in config else 32
         siren_layers = config['siren_layers'] if 'siren_layers' in config else 3
         self.gamma = config['gamma'] if 'gamma' in config else 1
+        self.beta = config['beta'] if 'beta' in config else 1
         self.conv = LocalConv(d_model=embed_dim, siren_hid=siren_dim, 
                             siren_hid_num=siren_layers, num_channel=num_channel, 
                             horizon=horizon)
@@ -78,7 +79,7 @@ class ConvTPP_Pred(nn.Module):
         time_error.masked_fill_(mask[:, 1:], 0)
         type_loss = -type_ce.sum()
         time_loss = time_error.sum()
-        loss = type_loss + self.gamma * time_loss
+        loss = self.beta*type_loss + self.gamma * time_loss
         return loss, type_loss, time_loss
 
     def predict(self, type_seq, time_seq):
@@ -88,10 +89,10 @@ class ConvTPP_Pred(nn.Module):
         mask = type_seq.eq(0)
         all_encs = self.encode(type_seq, time_seq) # 1-seq_len
         type_logsoftmax, dtimes_pred = self.decode(all_encs)
-        type_pred = type_logsoftmax.max(dim=-1)[0]
+        type_pred = type_logsoftmax.argmax(dim=-1)+1
         dtimes_pred = dtimes_pred.squeeze(-1)
-        type_pred.masked_fill_(mask[:, 1:], 0)
-        dtimes_pred.masked_fill_(mask[:, 1:], 0)
+        # type_pred.masked_fill_(mask[:, 1:], 0)
+        # dtimes_pred.masked_fill_(mask[:, 1:], 0)
         return type_pred, dtimes_pred
 
     # def decode(self, all_encs):

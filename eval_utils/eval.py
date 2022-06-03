@@ -27,11 +27,11 @@ def evalPred(model, dataloader):
         event_time, _, event_type = batch
         estimated_type, estimated_dt = model.predict(event_type[:, :-1], event_time[:, :-1])
         mask = event_type[:, 1:].ne(0)
-        estimated_type = estimated_type.masked_select(mask).tolist()
-        estimated_dt = estimated_dt.masked_select(mask).tolist()
-        real_type = event_type[:, 1:].masked_select(mask).tolist()
+        estimated_type = estimated_type.masked_select(mask.to(estimated_type.device)).tolist()
+        estimated_dt = estimated_dt.masked_select(mask.to(estimated_dt.device)).tolist()
+        real_type = event_type[:, 1:].masked_select(mask.to(event_type.device)).tolist()
         dtimes = event_time[:, 1:] - event_time[:, :-1]
-        real_dt = dtimes.masked_select(mask).tolist()
+        real_dt = dtimes.masked_select(mask.to(dtimes.device)).tolist()
         type_true.extend(real_type)
         type_pred.extend(estimated_type)
         dtime_true.extend(real_dt)

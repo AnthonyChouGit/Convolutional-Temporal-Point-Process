@@ -17,10 +17,11 @@ class LogNormMixTPP_Pred(nn.Module):
         self.embed = nn.Embedding(num_types+1, embed_dim, padding_idx=0)
         self.rnn = nn.GRU(input_size=embed_dim+1, hidden_size=hidden_dim, 
                     batch_first=True)
-        self.time_stack = nn.Linear(hidden_dim, 3*num_component)
+        self.time_stack = nn.Linear(hidden_dim, 1)
         self.mark_stack = nn.Linear(hidden_dim, num_types)
         self.num_component = num_component
         self.gamma = config['gamma'] if 'gamma' in config else 1
+        self.beta = config['beta'] if 'beta' in config else 1
         self.register_buffer('device_indicator', torch.empty(0))
 
     def encode(self, type_seq, time_seq):
@@ -64,7 +65,7 @@ class LogNormMixTPP_Pred(nn.Module):
         time_error.masked_fill_(mask[:, 1:], 0)
         type_loss = -type_ce.sum()
         time_loss = time_error.sum()
-        loss = type_loss + self.gamma * time_loss
+        loss = self.beta*type_loss + self.gamma * time_loss
         return loss, type_loss, time_loss
 
     def predict(self, type_seq, time_seq):
@@ -74,10 +75,10 @@ class LogNormMixTPP_Pred(nn.Module):
         mask = type_seq.eq(0)
         all_encs = self.encode(type_seq, time_seq) # 1-seq_len
         type_logsoftmax, dtimes_pred = self.decode(all_encs)
-        type_pred = type_logsoftmax.max(dim=-1)[0]
+        type_pred = type_logsoftmax.argmax(dim=-1)+1
         dtimes_pred = dtimes_pred.squeeze(-1)
-        type_pred.masked_fill_(mask[:, 1:], 0)
-        dtimes_pred.masked_fill_(mask[:, 1:], 0)
+        # type_pred.masked_fill_(mask[:, 1:], 0)
+        # dtimes_pred.masked_fill_(mask[:, 1:], 0)
         return type_pred, dtimes_pred
 
 
