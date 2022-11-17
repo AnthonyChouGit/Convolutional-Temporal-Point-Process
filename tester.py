@@ -9,6 +9,7 @@ from datetime import datetime
 from tqdm import tqdm
 import math
 import os
+import pandas as pd
 
 class Tester:
     def __init__(self, config, data_dir, device, model_name, max_len=None, max_epoch=400, 
@@ -81,6 +82,39 @@ class Tester:
 
     def modelExists(self):
         return os.path.exists(f'state_dicts/{self.model_name}')
+
+    @property
+    def time_stats(self):
+        with torch.no_grad():
+            all_dt = torch.empty(0, device=self.device)
+            for d in [self.eval_train_data, self.dev_data, self.test_data]:
+                for batch in d:
+                    time, _, et = batch
+                    et = et.to(self.device)
+                    time = time.to(self.device)
+                    mask = et.ne(0)
+                    batch_size = time.shape[0]
+                    dt = time[:, 1:] - time[:, :-1]
+                    dt = dt.masked_select(mask[:, 1:])
+                    all_dt = torch.cat([all_dt, dt])
+            dt_mean = all_dt.mean()
+            dt_max = all_dt.max()
+            dt_min = all_dt.min()
+        return dt_mean, dt_max, dt_min
+
+    @property
+    def type_stats(self):
+        with torch.no_grad():
+            all_type = list()
+            for d in [self.eval_train_data, self.dev_data, self.test_data]:
+                for batch in d:
+                    _, _, et = batch
+                    et = et.to(self.device)
+                    mask = et.ne(0)
+                    et = et.masked_select(mask)
+                    all_type.extend(list(et.cpu().numpy()))
+            all_type = pd.Series(all_type)
+            return all_type.value_counts()
 
     @property
     def data_stats(self):

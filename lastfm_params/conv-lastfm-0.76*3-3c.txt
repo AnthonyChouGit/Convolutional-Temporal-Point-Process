@@ -1,0 +1,12 @@
+11/17/22 10:58:25
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 3, 'horizon': [2.2800000000000002], 'num_component': 64, 'num_types': 3150}
+epoch 40 finished, best_loss=4.877022743225098.
+epoch 80 finished, best_loss=4.853348255157471.
+epoch 120 finished, best_loss=4.853348255157471.
+All done. Test_loss=4.588323593139648, type_loss=6.637967109680176, dt_loss=-2.0496437549591064.
+11/17/22 11:25:59
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 3, 'horizon': [3.8], 'num_component': 64, 'num_types': 3150}
+epoch 40 finished, best_loss=4.873502731323242.
+epoch 80 finished, best_loss=4.814516067504883.
+epoch 120 finished, best_loss=4.814516067504883.
+All done. Test_loss=4.737563610076904, type_loss=6.733290195465088, dt_loss=-1.995726466178894.

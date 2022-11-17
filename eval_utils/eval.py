@@ -31,6 +31,7 @@ def evalPred(model, dataloader):
         estimated_dt = estimated_dt.masked_select(mask.to(estimated_dt.device)).tolist()
         real_type = event_type[:, 1:].masked_select(mask.to(event_type.device)).tolist()
         dtimes = event_time[:, 1:] - event_time[:, :-1]
+        # print(dtimes.masked_select(mask.to(dtimes.device)).mean())
         real_dt = dtimes.masked_select(mask.to(dtimes.device)).tolist()
         type_true.extend(real_type)
         type_pred.extend(estimated_type)

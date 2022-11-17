@@ -1,0 +1,4 @@
+11/17/22 17:55:20
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 1, 'horizon': [25830], 'num_component': 64, 'num_types': 3}
+11/17/22 21:48:11
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 1, 'horizon': [25830], 'num_component': 64, 'num_types': 3}
