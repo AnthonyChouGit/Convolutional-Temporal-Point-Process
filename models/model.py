@@ -1,37 +1,17 @@
 import torch 
 from torch import nn
-from .nhp.model import NHP
 from .conv_tpp.model import ConvTPP
-from .hp.model import HP
-from .rmtpp.model import RMTPP
-from .log_norm_mix.model import LogNormMixTPP
-from .conv_tpp_pred.model import ConvTPP_Pred
-from .log_norm_mix_pred.model import LogNormMixTPP_Pred
 
 class TPP(nn.Module):
     def __init__(self, config):
         super(TPP, self).__init__()
         num_types = config['num_types']
-        # embed_dim = config['embed_dim']
-        # self.embed = nn.Embedding(num_types+2, embed_dim, padding_idx=0)
         self.num_types = num_types
         model_name = config['model']
         time_ratio = config['time_ratio'] if 'time_ratio' in config else 1
         self.time_ratio = time_ratio
-        if model_name.lower() == 'nhp':
-            self.model = NHP(config)
-        elif model_name.lower() == 'conv-tpp':
+        if model_name.lower() == 'conv-tpp':
             self.model = ConvTPP(config)
-        elif model_name.lower() == 'hp':
-            self.model = HP(config)
-        elif model_name.lower() == 'rmtpp':
-            self.model = RMTPP(config)
-        elif model_name.lower() == 'log-norm-mix':
-            self.model = LogNormMixTPP(config)
-        elif model_name.lower() == 'conv-tpp-pred':
-            self.model = ConvTPP_Pred(config)
-        elif model_name.lower() == 'log-norm-mix-pred':
-            self.model = LogNormMixTPP_Pred(config)
         else:
             raise NotImplementedError(f'{model_name} is not implemented.')
         self.register_buffer('device_indicator', torch.empty(0))
@@ -41,9 +21,11 @@ class TPP(nn.Module):
         loss, type_loss, dt_loss = self.model.compute_loss(type_seq, time_seq)
         return loss, type_loss, dt_loss
 
-
     def predict(self, type_seq, time_seq): 
         return self.model.predict(type_seq, time_seq)
+
+    def plot(self, dir_name='default'):
+        self.model.plot(dir_name)
 
 def processSeq(type_seq, time_seq, time_ratio=1): # TODO: no longer predict or calculate loss for the first event
     time_seq = time_seq - time_seq[:, 0].view(-1, 1)

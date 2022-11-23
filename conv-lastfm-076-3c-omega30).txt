@@ -1,0 +1,28 @@
+11/23/22 19:27:20
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 3, 'horizon': [0.76], 'num_component': 64, 'omega': 30, 'num_types': 3150}
+epoch 40 finished, best_loss=4.821556091308594.
+epoch 80 finished, best_loss=4.674914836883545.
+epoch 120 finished, best_loss=4.674914836883545.
+epoch 160 finished, best_loss=4.674914836883545.
+epoch 200 finished, best_loss=4.674914836883545.
+epoch 240 finished, best_loss=4.674914836883545.
+epoch 280 finished, best_loss=4.674914836883545.
+epoch 320 finished, best_loss=4.674914836883545.
+epoch 360 finished, best_loss=4.674914836883545.
+epoch 400 finished, best_loss=4.674914836883545.
+epoch 440 finished, best_loss=4.674914836883545.
+epoch 480 finished, best_loss=4.674914836883545.
+epoch 520 finished, best_loss=4.674914836883545.
+epoch 560 finished, best_loss=4.674914836883545.
+epoch 600 finished, best_loss=4.674914836883545.
+All done. Test_loss=4.58582067489624, type_loss=6.615372657775879, dt_loss=-2.0295519828796387.
+11/23/22 20:41:01
+{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 3, 'horizon': [0.76], 'num_component': 64, 'omega': 30, 'num_types': 3150}
+epoch 40 finished, best_loss=4.866106986999512.
+epoch 80 finished, best_loss=4.696541786193848.
+epoch 120 finished, best_loss=4.696150302886963.
+epoch 160 finished, best_loss=4.696150302886963.
+epoch 200 finished, best_loss=4.696117877960205.
+epoch 240 finished, best_loss=4.696117877960205.
+epoch 280 finished, best_loss=4.696117877960205.
+All done. Test_loss=4.591591835021973, type_loss=6.622416973114014, dt_loss=-2.030824661254883.

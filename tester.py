@@ -77,8 +77,11 @@ class Tester:
         # torch
         # torch.save(self.model.state_dict(), f'state_dicts/{self.model_name}')
     
+    def plot(self,dir_name='default'):
+        self.model.plot(dir_name)
+    
     def loadModel(self):
-        self.model.load_state_dict(torch.load(f'state_dicts/{self.model_name}'))
+        self.model.load_state_dict(torch.load(f'state_dicts/{self.model_name}', map_location=self.device))
 
     def modelExists(self):
         return os.path.exists(f'state_dicts/{self.model_name}')
