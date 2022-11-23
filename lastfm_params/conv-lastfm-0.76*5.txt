@@ -1,6 +1,0 @@
-11/17/22 11:14:40
-{'model': 'conv-tpp', 'embed_dim': 64, 'hidden_dim': 64, 'num_channel': 1, 'horizon': [3.8], 'num_component': 64, 'num_types': 3150}
-epoch 40 finished, best_loss=4.851341247558594.
-epoch 80 finished, best_loss=4.842613220214844.
-epoch 120 finished, best_loss=4.842613220214844.
-All done. Test_loss=4.68218469619751, type_loss=6.667686939239502, dt_loss=-1.9855021238327026.

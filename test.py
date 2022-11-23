@@ -3,7 +3,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-data_dir = '/data/zwt-datasets/data_so'
+data_dir = '/data/zwt-datasets/data_retweet'
 device = 'cuda:1'
 batch_size = 32
 eval_batch_size = 128
@@ -23,10 +23,13 @@ config = {
 
 tester = Tester(config, data_dir, device, 'conv-retweet', max_len, max_epoch=1000, batch_size=batch_size, eval_batch_size=eval_batch_size,
         pred_batch_size=pred_batch_size, lr_step=40, init_lr=1e-3, display_step=40)
-tester.loadModel()
-tester.train()
-tester.testNll()
-tester.testPred()
+print(tester.data_stats)
+print(tester.time_stats)
+print(tester.type_stats)
+# tester.loadModel()
+# tester.train()
+# tester.testNll()
+# tester.testPred()
 
 # type_stats = tester.type_stats
 # key_list = type_stats.keys()

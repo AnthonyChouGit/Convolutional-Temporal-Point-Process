@@ -10,31 +10,36 @@ eval_batch_size = 128
 pred_batch_size = 128
 max_len = 256
 
-config = {
-    'model': 'conv-tpp',
-    'embed_dim': 64,
-    'hidden_dim': 64,
-    'num_channel':1,
-    'horizon':[2583*10],
-    'num_component':64
-}
+# (1st, 2nd)
+for i in [1, 3, 5, 10]:
+    for j in [3]:
+        horizon = [2583*i, 2583*j]
 
-tester = Tester(config, data_dir, device, 'conv-retweet-2583*10', max_len, max_epoch=1000, batch_size=batch_size, eval_batch_size=eval_batch_size,
-        pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40)
-tester.train()
-tester.testNll()
+        config = {
+            'model': 'conv-tpp',
+            'embed_dim': 64,
+            'hidden_dim': 64,
+            'num_channel':2,
+            'horizon':horizon,
+            'num_component':64
+        }
+
+        tester = Tester(config, data_dir, device, f'conv-retweet-2583*({i},{j})', max_len, max_epoch=600, batch_size=batch_size, eval_batch_size=eval_batch_size,
+                pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40, patience=600)
+        tester.train()
+        tester.testNll()
 
 # config = {
 #     'model': 'conv-tpp',
 #     'embed_dim': 64,
 #     'hidden_dim': 64,
-#     'num_channel':2,
-#     'horizon':[0.76*10],
+#     'num_channel':3,
+#     'horizon':[2583*2],
 #     'num_component':64
 # }
 
-# tester = Tester(config, data_dir, device, 'conv-lastfm-0.76*10-2c', max_len, max_epoch=1000, batch_size=batch_size, eval_batch_size=eval_batch_size,
-#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=1e-3, display_step=40)
+# tester = Tester(config, data_dir, device, 'conv-retweet-2583*2-3c', max_len, max_epoch=600, batch_size=batch_size, eval_batch_size=eval_batch_size,
+#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40, patience=600)
 # tester.train()
 # tester.testNll()
 
@@ -43,21 +48,39 @@ tester.testNll()
 #     'embed_dim': 64,
 #     'hidden_dim': 64,
 #     'num_channel':3,
-#     'horizon':[0.76*10],
+#     'horizon':[2583*3],
 #     'num_component':64
 # }
 
+# tester = Tester(config, data_dir, device, 'conv-retweet-2583*3-3c', max_len, max_epoch=600, batch_size=batch_size, eval_batch_size=eval_batch_size,
+#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40, patience=600)
+# tester.train()
+# tester.testNll()
 
 # config = {
 #     'model': 'conv-tpp',
 #     'embed_dim': 64,
 #     'hidden_dim': 64,
-#     'num_channel':1,
-#     'horizon':[0.76*3],
+#     'num_channel':3,
+#     'horizon':[2583*5],
 #     'num_component':64
 # }
 
-# tester = Tester(config, data_dir, device, 'conv-lastfm-0.76*3', max_len, max_epoch=1000, batch_size=batch_size, eval_batch_size=eval_batch_size,
-#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=1e-3, display_step=40)
+# tester = Tester(config, data_dir, device, 'conv-retweet-2583*5-3c', max_len, max_epoch=600, batch_size=batch_size, eval_batch_size=eval_batch_size,
+#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40, patience=600)
+# tester.train()
+# tester.testNll()
+
+# config = {
+#     'model': 'conv-tpp',
+#     'embed_dim': 64,
+#     'hidden_dim': 64,
+#     'num_channel':3,
+#     'horizon':[2583*10],
+#     'num_component':64
+# }
+
+# tester = Tester(config, data_dir, device, 'conv-retweet-2583*10-3c', max_len, max_epoch=600, batch_size=batch_size, eval_batch_size=eval_batch_size,
+#         pred_batch_size=pred_batch_size, lr_step=40, init_lr=0.5e-3, display_step=40, patience=600)
 # tester.train()
 # tester.testNll()
