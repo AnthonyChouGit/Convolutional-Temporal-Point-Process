@@ -1,2 +1,2 @@
-# Convolutional-Temporal-Point-Process
+# Convolutional Temporal Point Process
 PyTorch implementation of CTPP
