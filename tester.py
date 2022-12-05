@@ -77,8 +77,8 @@ class Tester:
         # torch
         # torch.save(self.model.state_dict(), f'state_dicts/{self.model_name}')
     
-    def plot(self,dir_name='default'):
-        self.model.plot(dir_name)
+    def plot(self,dir_name='default', width=1):
+        self.model.plot(dir_name, width)
     
     def loadModel(self):
         self.model.load_state_dict(torch.load(f'state_dicts/{self.model_name}', map_location=self.device))

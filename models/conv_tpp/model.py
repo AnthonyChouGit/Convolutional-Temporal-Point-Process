@@ -89,7 +89,7 @@ class ConvTPP(nn.Module):
     def predict(self, type_seq, time_seq):
         raise NotImplementedError()
 
-    def plot(self, dir_name='default'):
+    def plot(self, dir_name='default', width=1):
         self.eval()
         with torch.no_grad():
             device = self.device_indicator.device
@@ -106,14 +106,21 @@ class ConvTPP(nn.Module):
                 dt_vals = dt_vals.to('cpu').numpy()
                 kern_vals = kern_vals.to('cpu').numpy()
                 plt.rcParams['figure.figsize'] = (6, 6)
-                plt.locator_params(axis='x', nbins=5)
+                # plt.locator_params(axis='x', nbins=5)
                 for j in range(kern_vals.shape[1]):
-                    plt.plot(dt_vals, kern_vals[:, j], linewidth=0.3)
+                    plt.plot(dt_vals, kern_vals[:, j], linewidth=width)
                 # plt.xlabel('Δt', fontsize=32)
                 # plt.ylabel('ψ(Δt)', fontsize=32)
                 # plt.title(f'layer {i}', fontsize=25)
-                plt.xticks(fontsize=32)
-                plt.yticks(fontsize=32)
+
+                plt.yticks([-0.457, -0.456, -0.455, -0.454],fontsize=32)
+                plt.xticks([0, 0.2, 0.4, 0.6, 0.8], labels=[0 ,2,4,6,8], fontsize=32)
+                plt.xlabel('$τ$ (×$10^{-1}$)', fontsize=32)
+                plt.ylabel('ψ(τ)', fontsize=32)
+
+
+                # plt.xticks(fontsize=32)
+                # plt.yticks(fontsize=32)
                 plt.savefig(f'figs/{dir_name}/layer {i}.jpg', bbox_inches='tight')
                 plt.clf()
         self.train()

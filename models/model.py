@@ -24,8 +24,8 @@ class TPP(nn.Module):
     def predict(self, type_seq, time_seq): 
         return self.model.predict(type_seq, time_seq)
 
-    def plot(self, dir_name='default'):
-        self.model.plot(dir_name)
+    def plot(self, dir_name='default', width=1):
+        self.model.plot(dir_name, width)
 
 def processSeq(type_seq, time_seq, time_ratio=1): # TODO: no longer predict or calculate loss for the first event
     time_seq = time_seq - time_seq[:, 0].view(-1, 1)
